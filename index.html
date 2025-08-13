@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker & Budget Planner</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-wallet"></i>
+                <h1>Budget Planner</h1>
+            </div>
+            <div class="header-actions">
+                <button id="exportBtn" class="btn btn-outline">
+                    <i class="fas fa-download"></i> Export
+                </button>
+                <button id="clearBtn" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Clear All
+                </button>
+            </div>
+        </header>
+
+        <!-- Dashboard Cards -->
+        <div class="dashboard">
+            <div class="card">
+                <div class="card-icon income">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Total Income</h3>
+                    <p id="totalIncome">$0.00</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon expense">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Total Expenses</h3>
+                    <p id="totalExpenses">$0.00</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon balance">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Balance</h3>
+                    <p id="balance">$0.00</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Panel -->
+            <div class="left-panel">
+                <!-- Budget Setup -->
+                <div class="section">
+                    <h2><i class="fas fa-bullseye"></i> Monthly Budget</h2>
+                    <div class="budget-setup">
+                        <div class="form-group">
+                            <label for="monthlyBudget">Set Monthly Budget</label>
+                            <input type="number" id="monthlyBudget" placeholder="Enter amount">
+                            <button id="setBudgetBtn" class="btn btn-primary">Set Budget</button>
+                        </div>
+                        <div class="budget-display">
+                            <div class="budget-info">
+                                <span>Budget: <strong id="budgetAmount">$0.00</strong></span>
+                                <span>Spent: <strong id="spentAmount">$0.00</strong></span>
+                                <span>Remaining: <strong id="remainingAmount">$0.00</strong></span>
+                            </div>
+                            <div class="budget-progress">
+                                <div class="progress-bar">
+                                    <div id="progressFill" class="progress-fill"></div>
+                                </div>
+                                <span id="progressText">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Transaction -->
+                <div class="section">
+                    <h2><i class="fas fa-plus-circle"></i> Add Transaction</h2>
+                    <form id="transactionForm" class="transaction-form">
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" id="description" placeholder="Enter description" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <input type="number" id="amount" placeholder="0.00" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Type</label>
+                                <select id="type" required>
+                                    <option value="">Select type</option>
+                                    <option value="income">Income</option>
+                                    <option value="expense">Expense</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select id="category" required>
+                                    <option value="">Select category</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="date" id="date" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-plus"></i> Add Transaction
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Categories Management -->
+                <div class="section">
+                    <h2><i class="fas fa-tags"></i> Categories</h2>
+                    <div class="category-management">
+                        <div class="form-group">
+                            <input type="text" id="newCategory" placeholder="Add new category">
+                            <button id="addCategoryBtn" class="btn btn-secondary">Add</button>
+                        </div>
+                        <div id="categoriesList" class="categories-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="right-panel">
+                <!-- Filters -->
+                <div class="section">
+                    <h2><i class="fas fa-filter"></i> Filters</h2>
+                    <div class="filters">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="filterType">Type</label>
+                                <select id="filterType">
+                                    <option value="">All</option>
+                                    <option value="income">Income</option>
+                                    <option value="expense">Expense</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="filterCategory">Category</label>
+                                <select id="filterCategory">
+                                    <option value="">All Categories</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="filterDateFrom">From</label>
+                                <input type="date" id="filterDateFrom">
+                            </div>
+                            <div class="form-group">
+                                <label for="filterDateTo">To</label>
+                                <input type="date" id="filterDateTo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transactions List -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-list"></i> Transactions</h2>
+                        <div class="transaction-summary">
+                            <span id="transactionCount">0 transactions</span>
+                        </div>
+                    </div>
+                    <div id="transactionsList" class="transactions-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Transaction Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Transaction</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="editTransactionForm">
+                <div class="form-group">
+                    <label for="editDescription">Description</label>
+                    <input type="text" id="editDescription" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editAmount">Amount</label>
+                        <input type="number" id="editAmount" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editType">Type</label>
+                        <select id="editType" required>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editCategory">Category</label>
+                        <select id="editCategory" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDate">Date</label>
+                        <input type="date" id="editDate" required>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelEdit">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Transaction</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
