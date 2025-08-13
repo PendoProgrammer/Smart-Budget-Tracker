@@ -211,7 +211,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Mr.Ali Akber
 
 GitHub: pendoprogrammer
-Email: your.email@example.com
+Email: info@guidehubz.com
 🙏 Acknowledgments
 Font Awesome for beautiful icons
 Modern web standards for making this possible without frameworks
